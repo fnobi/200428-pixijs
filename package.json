@@ -1,0 +1,15 @@
+{
+  "name": "200428-pixijs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "sector-slide -s README.md",
+    "build": "sector-slide README.md"
+  },
+  "author": "Fujisawa Shin",
+  "license": "ISC",
+  "dependencies": {
+    "sector-slide": "^1.3.2"
+  }
+}
