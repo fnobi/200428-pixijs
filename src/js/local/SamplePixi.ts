@@ -25,23 +25,29 @@ export default class SamplePixi {
       height: HEIGHT
     });
 
-    // 描画するオブジェクトを束ねるやつ。div。
+    // 描画するオブジェクトをグルーピングしてくれるやつ。div的なもの。
     this.bgContainer = new PIXI.Container();
     this.mainContainer = new PIXI.Container();
     this.app.stage.addChild(this.bgContainer);
     this.app.stage.addChild(this.mainContainer);
 
+    // 毎フレーム実行する処理
     this.app.ticker.add(delta => {
       this.update(delta);
     });
 
+    // リソース読み込み開始
     this.load();
   }
 
   private load() {
+    // 読み込むリソースを端から追加
     this.app.loader.add(ASSET_BG).add(ASSET_CHARA);
+
+    // 読み込み終わったらリソースからテクスチャ、テクスチャからスプライトつくる
     this.app.loader.load((loader, res) => {
-      const [bgTexture, charaTexture] = [res[ASSET_BG], res[ASSET_CHARA]];
+      const bgTexture = res[ASSET_BG];
+      const charaTexture = res[ASSET_CHARA];
       if (bgTexture) {
         const bg = new PIXI.Sprite(bgTexture.texture);
         this.bgContainer.addChild(bg);
@@ -49,7 +55,6 @@ export default class SamplePixi {
       if (charaTexture) {
         const chara = new PIXI.Sprite(charaTexture.texture);
         chara.anchor.set(0.5, 0.5);
-        chara.position.set(WIDTH / 2, HEIGHT / 2);
         chara.scale.set(0.5, 0.5);
         this.mainContainer.addChild(chara);
         this.chara = chara;
