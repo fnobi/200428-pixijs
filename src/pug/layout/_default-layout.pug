@@ -1,0 +1,63 @@
+block config-block
+  - title = page_name ? [page_name, meta.site_name].join(' | ') : meta.site_name
+  - page_url = SITE_ORIGIN + BASE_DIR + (page_path || '')
+  - share_image_url = SITE_ORIGIN + (page_share_image || require('~/assets/meta/ogp.png'))
+  //- favicon_image = require('~/assets/meta/favicon.ico')
+  //- webclipicon_image = require('~/assets/meta/webclipicon.png')
+
+doctype html
+html(lang="ja")
+  head
+    meta(charset="utf-8")
+    // meta
+    title= title
+    meta(name="description" content=meta.description)
+    if meta.keywords.length
+      meta(name="keywords" content=meta.keywords.join(','))
+    if favicon_image
+      link(rel="shortcut icon" href=favicon_image type="image/vnd.microsoft.icon")
+      link(rel="icon" href=favicon_image type="image/vnd.microsoft.icon")
+
+    //- IEで「互換モード」で表示されるのを防ぐための指定
+    meta(http-equiv="X-UA-Compatible" content="IE=Edge")
+
+    //- iOSで電話番号に見える数字をリンクに設定する機能を無効にする
+    meta(name="format-detection" content="telephone=no")
+
+    // smartphone meta
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no")
+    if webclipicon_image
+      link(rel="apple-touch-icon" href=webclipicon_image)
+
+    // ogp
+    if meta.facebook_app_id
+      meta(property="fb:app_id" content=meta.facebook_app_id)
+    meta(property="og:url" content=page_url)
+    meta(property="og:image" content=share_image_url)
+    meta(property="og:type" content=meta.ogp_type)
+    meta(property="og:title" content=title)
+    meta(property="og:site_name" content=meta.site_name)
+    meta(property="og:description" content=meta.description)
+
+    // twitter card
+    meta(property="twitter:card" content="summary_large_image")
+    meta(property="twitter:title" content=title)
+    meta(property="twitter:description" content=meta.description)
+    meta(property="twitter:image" content=share_image_url)
+
+    // canonical url
+    //- このページをはてぶ・シェアする際、使われるべきURLを明示する指定
+    //- wwwやhttps、getパラメータなど、微妙に違うURLでアクセスされても、使われるURLをひとつに絞れる
+    link(rel="canonical" href=page_url)
+
+    block meta-block
+
+    // stylesheet
+    block stylesheet-block
+
+  body
+    .wrapper
+      block content-block
+
+    // javascript
+    block javascript-block

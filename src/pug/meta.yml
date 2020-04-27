@@ -1,0 +1,13 @@
+# このサイト全体のタイトル
+site_name: sample
+
+# meta description（og:description・twitter:descriptionでも使用）
+description: sample web page.
+
+# meta keywords
+keywords: []
+
+ogp_type: website
+
+# Facebookアプリのapp id（入れないとWarningが出る）
+# facebook_app_id: 99999999999

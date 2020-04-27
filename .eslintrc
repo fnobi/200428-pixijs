@@ -1,0 +1,34 @@
+{
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "arrow-parens": [2, "as-needed"],
+    "curly": [1, "all"],
+    "no-unused-vars": 0,
+    "@typescript-eslint/explicit-member-accessibility": 2,
+    "@typescript-eslint/no-unnecessary-type-assertion": 2,
+    "@typescript-eslint/no-explicit-any": 2,
+    "@typescript-eslint/no-unused-vars": 2,
+    "prefer-arrow/prefer-arrow-functions": 0,
+    "import/no-duplicates": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
+    "no-undef": 1,
+    "prettier/prettier": 1,
+    "no-shadow": 1,
+    "no-param-reassign" : 1
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "location": true
+  },
+  "env": {
+    "jest": true
+  }
+}
