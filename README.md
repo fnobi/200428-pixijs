@@ -132,7 +132,7 @@ private load() {
 ## 注意点
 
 - **windowに依存 = SSRでそのまま動かすと死ぬ**
-    - Nuxt.jsやNext.jsを使ってるとサーバーサイドでHTMLをつくるためにNode.js上でフロントのコードが走ることがあるが、そのときPixiJSを参照していると死ぬ
+    - Nuxt.jsやNext.jsを使ってるとサーバーサイドでHTMLをつくるためにNode.js上でフロントのコードが走る(Server Side Rendering)ことがあるが、そのときPixiJSを参照していると死ぬ
     - nuxtの`client-only`タグとか、nextのdynamic importとかを使って回避してやる必要がある
 - **テクスチャサイズ問題**
     - WebGLでは、表示できるテクスチャのサイズに上限がある。特にスマホではPCより軒並み小さめなので、実機で表示されるかどうかを確認しないとあぶない。
