@@ -50,27 +50,50 @@
 ## 描画処理の書き方
 
 ```ts
-import ASSET_BG from "~/assets/bg.png"
-import ASSET_CHARA from "~/assets/chara.png"
+public constructor(canvas: HTMLCanvasElement) {
+  // もろもろのリソース・メモリ管理をしてくれる人
+  // 基本1canvas = 1app
+  this.app = new PIXI.Application({
+    view: canvas,
+    width: WIDTH,
+    height: HEIGHT
+  });
 
-class SamplePixi {
-    public constructor() {
-        // もろもろのリソース・メモリ管理をしてくれる人
-        // 基本1canvas = 1app
-        const app = new PIXI.Application({
-            view: document.querySelector('#canvas')
-        });
+  // 描画するオブジェクトをグルーピングしてくれるやつ。div的なもの。
+  this.bgContainer = new PIXI.Container();
+  this.mainContainer = new PIXI.Container();
+  this.app.stage.addChild(this.bgContainer);
+  this.app.stage.addChild(this.mainContainer);
 
-        // 描画するオブジェクトを束ねるやつ。div。
-        const bgContainer = new PIXI.Container();
-        const mainContainer = new PIXI.Container();
-        app.stage.addChild(bgContainer);
-        app.stage.addChild(mainContainer);
+  // 毎フレーム実行する処理
+  this.app.ticker.add(delta => {
+    this.update(delta);
+  });
 
-        app.ticker.add(() => {
+  // リソース読み込み開始
+  this.load();
+}
 
-        });
+private load() {
+  // 読み込むリソースを端から追加
+  this.app.loader.add(ASSET_BG).add(ASSET_CHARA);
+
+  // 読み込み終わったらリソースからテクスチャ、テクスチャからスプライトつくる
+  this.app.loader.load((loader, res) => {
+    const bgTexture = res[ASSET_BG];
+    const charaTexture = res[ASSET_CHARA];
+    if (bgTexture) {
+      const bg = new PIXI.Sprite(bgTexture.texture);
+      this.bgContainer.addChild(bg);
     }
+    if (charaTexture) {
+      const chara = new PIXI.Sprite(charaTexture.texture);
+      chara.anchor.set(0.5, 0.5);
+      chara.scale.set(0.5, 0.5);
+      this.mainContainer.addChild(chara);
+      this.chara = chara;
+    }
+  });
 }
 ```
 
