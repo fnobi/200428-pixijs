@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const routeDataMapper = require('webpack-route-data-mapper')
-const readConfig = require('read-config')
+const readConfig = require('read-config-ng')
 const path = require('path')
 
 // base config
